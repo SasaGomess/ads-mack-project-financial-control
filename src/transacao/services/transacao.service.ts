@@ -24,7 +24,9 @@ export class TransacaoService {
       tipo: data.tipo,
     });
 
-    return await transacaoModel.save();
+    const transactionCreated = await transacaoModel.save();
+
+    return new TransacaoResponseDto(transactionCreated);
   }
 
   public async getTransactionsSummary(): Promise<ResumoTransacoesDto> {
@@ -50,8 +52,10 @@ export class TransacaoService {
       .map((t) => t.valor)
       .reduce((acc, current) => acc + current, 0);
 
+    const historico = transacoes.map(t => new TransacaoResponseDto(t));
+
     return {
-      historico: transacoes,
+      historico,
       metricas: {
         saldoTotal,
         totalDespesas,

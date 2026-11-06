@@ -21,6 +21,15 @@ export class TransacaoResponseDto {
   tipo?: string;
   categoria?: string;
   consumoConsciente?: boolean;
+
+  constructor(valor: Partial<TransacaoResponseDto>) {
+    this.id = valor.id;
+    this.descricao = valor.descricao;
+    this.valor = valor.valor;
+    this.tipo = valor.tipo;
+    this.categoria = valor.categoria;
+    this.consumoConsciente = valor.consumoConsciente;
+  }
 }
 
 export class ResumoTransacoesDto {
